@@ -1,0 +1,3 @@
+Hello!
+I am learning Python module system.
+I am also learning file I/O.

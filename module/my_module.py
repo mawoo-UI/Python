@@ -24,5 +24,6 @@ class Calculator:
         if b == 0:
             return "Cannot be divided by 0."
         return a / b
+    
     def power(self, a, b):
         return a ** b
