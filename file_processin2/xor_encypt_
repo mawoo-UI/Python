@@ -1,0 +1,57 @@
+def xor_encrypt_decrypt(input_file, output_file, key):
+  # XOR 암호화/복호화 함수 (같은 함수로 두 기능 모두 수행 가능)
+  try:
+    # 입력 파일 읽기
+    with open(input_file, 'rb') as infile:
+      data = infile.read()
+    
+    # 키를 바이트로 변환
+    key_bytes = key.encode('utf-8')
+    key_length = len(key_bytes)
+    
+    # XOR 연산 수행
+    encrypted_data = bytearray()
+    for i, byte in enumerate(data):
+      key_byte = key_bytes[i % key_length]
+      # XOR 연산
+      encrypted_data.append(byte ^ key_byte)
+    
+    # 출력 파일 쓰기
+    with open(output_file, 'wb') as outfile:
+      outfile.write(encrypted_data)
+    
+    print(f"File processed successfully: {output_file}")
+    return True
+  
+  except FileNotFoundError:
+    print(f"Error: Input file {input_file} not found.")
+    return False
+  except Exception as e:
+    print(f"Error processing file: {e}")
+    return False
+
+if __name__ == "__main__":
+  print("==== File Encryption/Decryption Tool ====")
+  print("Note: This uses simple XOR encryption and is not secure for sensitive data")
+  
+  while True:
+    print("\n1. Encrypt a file")
+    print("2. Decrypt a file")
+    print("3. Exit")
+    choice = input("Select: ")
+    
+    if choice == '3':
+      print("Exiting program.")
+      break
+    
+    if choice in ('1', '2'):
+      action = "Encrypt" if choice == '1' else "Decrypt"
+      input_file = input(f"Enter file to {action.lower()}: ")
+      output_file = input(f"Enter output file name: ")
+      key = input("Enter encryption key: ")
+      
+      if xor_encrypt_decrypt(input_file, output_file, key):
+        print(f"File {action.lower()}ed successfully!")
+    
+    else:
+      print("Invalid selection.")
